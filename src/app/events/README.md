@@ -3,7 +3,7 @@
 This directory contains event handlers for Discord events. Files in this folder will automatically 
 be registered to listen to the Discord event specified by `name`.
 
-A full list of available Discord events can be found on the
+A full list of available Discord events can be found in the
 [discord.js documentation](https://discord.js.org/#/docs/main/stable/class/Client).
 
 Event handlers are structured as follows:

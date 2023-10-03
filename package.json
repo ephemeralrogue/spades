@@ -30,7 +30,6 @@
     "@sentry/tracing": "^7.70.0",
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
-    "fastify": "^4.23.2",
     "mongodb": "^6.1.0",
     "pino": "^8.15.1",
     "pino-sentry-transport": "^1.0.5"

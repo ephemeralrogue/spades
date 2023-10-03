@@ -18,7 +18,7 @@ const mongoClient = new MongoClient(mongoDBURIPartial, options);
 
 export default async function connect(database) {
         try {
-            // let db;
+
             Log.debug(`Connecting to ${database} for the first time!`);
 
             await mongoClient.connect();
@@ -26,11 +26,7 @@ export default async function connect(database) {
             await mongoClient.db(database).command({ ping: 1 });
             Log.debug('Pinged your deployment. You successfully connected to MongoDB!');
 
-			// db = mongoClient.db();
-            // return db;
         } finally {
             await mongoClient.close();
         }
     };
-
-// export default connect;
