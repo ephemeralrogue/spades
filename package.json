@@ -1,7 +1,7 @@
 {
   "name": "spades",
   "description": "discord.js bot template",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "src/app/app.js",
   "type": "module",
   "author": "nonsensetwice",
