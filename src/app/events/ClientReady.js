@@ -11,7 +11,7 @@ const ClientReady = {
 
             client.user.setActivity(process.env.DISCORD_BOT_ACTIVITY);
             client.guilds.cache.forEach(guild => {
-				Log.info(`${process.env.APP_NAME} active for: ${guild.id}, ${guild.name}`);
+				Log.info(`${process.env.APP_NAME} is active for: ${guild.id}, ${guild.name}`);
 			});
 
             await connect(process.env.DB_NAME).catch(reason => { Log.error(reason) });

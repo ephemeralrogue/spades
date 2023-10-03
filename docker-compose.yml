@@ -23,10 +23,5 @@ services:
       MONGODB_CLUSTER: ${MONGODB_CLUSTER}
       DB_NAME: ${DB_NAME}
 
-      # Pino-Loki
-      LOKI_HOST: ${LOKI_HOST}
-      LOKI_USERNAME: ${LOKI_USERNAME}
-      LOKI_PASSWORD: ${LOKI_PASSWORD}
-
       # Sentry
       SENTRY_IO_DSN: ${SENTRY_IO_DSN}

@@ -1,8 +1,6 @@
 import pino from 'pino';
 import Sentry from '@sentry/node';
 
-// const command = interaction.client.commands.get(interaction.commandName);
-
 let pinoLevel;
 if (process.env.NODE_ENV != 'production') {
     pinoLevel = 'trace';
@@ -17,7 +15,6 @@ const transport = pino.transport({
         level: pinoLevel,
         batching: true,
         interval: 5,
-        host: process.env.LOKI_HOST,
         sentry: {
             dsn: process.env.SENTRY_IO_DSN
         }

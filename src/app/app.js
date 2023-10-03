@@ -8,14 +8,12 @@ from 'discord.js';
 import { SapphireClient } from '@sapphire/framework';
 import Log from './utils/Log.js'
 import { init, Integrations } from '@sentry/node';
-// import { RewriteFrames } from '@sentry/integrations';
+import { RewriteFrames } from '@sentry/integrations';
 
 initializeSentryIO();
 
 const client = initializeClient();
 initializeEvents();
-
-
 
 client.login(process.env.DISCORD_BOT_TOKEN).catch(Log.error);
 
@@ -72,18 +70,17 @@ async function initializeEvents() {
 
 // Sentry setup
 function initializeSentryIO() {
-    // const root = new URL('./', import.meta.url);
+    const root = new URL('./', import.meta.url);
     init({
         dsn: process.env.SENTRY_IO_DSN,
         tracesSampleRate: 1.0,
         environment: process.env.NODE_ENV,
-        /*
+        
         integrations: [
 			new RewriteFrames({
 				root: root,
 			}),
 			new Integrations.Http({ tracing: true }),
 		],
-        */
     });
 }
