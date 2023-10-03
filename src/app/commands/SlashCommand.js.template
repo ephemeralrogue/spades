@@ -1,0 +1,42 @@
+// import { isMessageInstance } from '@sapphire/discord.js-utilities'; only necessary if messaging
+import { Command } from '@sapphire/framework';
+
+export default class Ping extends Command {
+    constructor(ctx, options) {
+        super(ctx, {
+            ... options,
+            name: 'name',
+            aliases: [], // aliases for the command. accepts an array.
+            description: '', // a basic summary about the command
+            detailedDescription: '', // a detailed summary about the command
+            enabled: true, // default
+            preconditions: [], // an array of preconditions to be run
+            cooldownDelay: 2, // time in milliseconds for the cooldown entries to reset
+            cooldownFilteredUsers: [], // users that are exempt from the Cooldown precondition.
+            cooldownLimit: 2, // amount of entries the cooldown can have before filling up
+            cooldownScope: 0, // scope of the cooldown entries. 0=channel, 1=global, 2=guild, 3=user
+            flags: true || [], // accepted flags. Flags are key-only identifiers that can be placed anywhere in the command.
+            fullCategory: [], // array of folder names that lead back to the folder registered for in the commands store
+            generateDashLessAliases: false, // default
+            generateUnderscoreLessAliases: false, // default
+            nsfw: false, // default; sets whether the command should be treated as nsfw
+            options: [], // accepted options
+            prefixes: [], // prefixes for both flags and options. accepts array of strings
+            quotes: [], // quotes accepted by this command, pass [] to disable them
+            requiredClientPermissions: 0, // required permissions for the client
+            requiredUserPermissions: 0, // required permissions for the user
+            runIn: null, // channels the command should run in
+            separators: [], // flag separators
+        });
+    };
+
+    registerApplicationCommands(registry) {
+        registry.registerChatInputCommand((builder) =>
+          builder.setName('name').setDescription('')
+        );
+    };
+
+    async chatInputRun(interaction) {
+        // enter logic here
+    }
+};
