@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  bot:
+    container_name: spades
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: development
+      APP_NAME: ${spades}
+
+      # Discord application
+      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
+      DISCORD_BOT_PUBLIC_KEY: ${DISCORD_BOT_PUBLIC_KEY}
+      DISCORD_BOT_APPLICATION_ID: ${DISCORD_BOT_APPLICATION_ID}
+      DISCORD_BOT_ACTIVITY: ${DISCORD_BOT_ACTIVITY}
+
+      # MongoDB
+      MONGODB_PREFIX: ${MONGODB_PREFIX}
+      MONGODB_USERNAME: ${MONGODB_USERNAME}
+      MONGODB_PASS: ${MONGODB_PASS}
+      MONGODB_CLUSTER: ${MONGODB_CLUSTER}
+      DB_NAME: ${DB_NAME}
+
+      # Pino-Loki
+      LOKI_HOST: ${LOKI_HOST}
+      LOKI_USERNAME: ${LOKI_USERNAME}
+      LOKI_PASSWORD: ${LOKI_PASSWORD}
+
+      # Sentry
+      SENTRY_IO_DSN: ${SENTRY_IO_DSN}
