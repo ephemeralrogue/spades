@@ -16,8 +16,11 @@ jobs:
     - name: Checkout main
       uses: actions/checkout@v2
 
+    - name: Update SHA
+      run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/site/_meta
+
     - name: Build Docker image
-      run: docker build -t registry.digitalocean.com/nonsensetwice/spades
+      run: docker build -t registry.digitalocean.com/nonsensetwice/spades:$(echo $GITHUB_SHA | head -c7)
 
     - name: Install doctl
       uses: digitalocean/action-doctl@v2
