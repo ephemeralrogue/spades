@@ -1,0 +1,27 @@
+name: Deploy to Production Environment
+
+on:
+  push:
+    branches:
+      - 'test'
+
+jobs:
+
+  deploy-do:
+
+    environment:
+      name: production
+    runs-on: ubuntu-22.04
+
+    steps:
+
+      - uses: actions/checkout@v4
+      - uses: isbang/compose-action@v1.5.1
+        with:
+          compose-file: './docker-compose.yml'
+        
+      - name: DigitalOcean App Platform deployment
+        uses: digitalocean/app_action@v1.1.5
+        with:
+          app_name: COREBot
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
