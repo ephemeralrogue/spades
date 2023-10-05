@@ -13,14 +13,11 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
 
-    - name: Checkout main
-      uses: actions/checkout@v2
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
 
-    - name: Update SHA
-      run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/site/_meta
-
-    - name: Build Docker image
-      run: docker build -t registry.digitalocean.com/nonsensetwice/spades:$(echo $GITHUB_SHA | head -c7)
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
 
     - name: Install doctl
       uses: digitalocean/action-doctl@v2
@@ -29,6 +26,13 @@ jobs:
 
     - name: Log in to DigitalOcean Container Registry with short-lived credentials
       run: doctl registry login --expiry-seconds 600
+
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile
+        push: false
 
     - name: Push image to DigitalOcean Container Registry
       run: docker push registry.digitalocean.com/nonsensetwice/spades
