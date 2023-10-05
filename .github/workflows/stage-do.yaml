@@ -40,4 +40,4 @@ jobs:
         push: false
 
     - name: Push image to DigitalOcean Container Registry
-      run: docker push ./spades-image:latest
+      run: docker push spades-image:latest
