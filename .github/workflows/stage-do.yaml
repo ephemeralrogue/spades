@@ -35,9 +35,10 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        tags: spades-image:latest
+#        tags: spades-image:latest
         # outputs: type=docker, dest=./spades-image.tar
         push: true
+        tags: registry.digitalocean.com/nonsensetwice/spades-image:latest
 
 #    - name: Push image to DigitalOcean Container Registry
 #      run: docker push registry.digitalocean.com/nonsensetwice/spades-image:latest
