@@ -40,4 +40,4 @@ jobs:
         push: false
 
     - name: Push image to DigitalOcean Container Registry
-      run: docker push registry.digitalocean.com/nonsensetwice/spades:./spades-image.tar
+      run: docker push registry.digitalocean.com/nonsensetwice/spades-image:latest
