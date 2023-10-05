@@ -30,10 +30,10 @@ jobs:
     - name: Log in to DigitalOcean Container Registry with short-lived credentials
       run: doctl registry login --expiry-seconds 600
 
-    - name: Remove old images
-      run: doctl registry repository delete-manifest $(echo $IMAGE_NAME) $(doctl registry repository list-tags $(echo $IMAGE_NAME) | grep -o "sha.*") --force
-      env:
-        IMAGE_NAME: spades-image
+#    - name: Remove old images
+#      run: doctl registry repository delete-manifest $(echo $IMAGE_NAME) $(doctl registry repository list-tags $(echo $IMAGE_NAME) | grep -o "sha.*") --force
+#      env:
+#        IMAGE_NAME: spades-image
 
     - name: Build and push
       uses: docker/build-push-action@v5
