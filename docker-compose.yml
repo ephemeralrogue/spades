@@ -8,7 +8,7 @@ services:
       dockerfile: ./Dockerfile
     environment:
       NODE_ENV: development
-      APP_NAME: ${spades}
+      APP_NAME: ${APP_NAME}
 
       # Discord application
       DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
