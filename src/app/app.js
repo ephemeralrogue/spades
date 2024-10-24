@@ -61,6 +61,7 @@ async function initializeEvents() {
 				client.on(event.name, (...args) => event.execute(...args, client));
 			}
 		} catch (e) {
+			// eslint-disable-next-line no-console
 			console.error('events error:', e);
 		}
 	});
