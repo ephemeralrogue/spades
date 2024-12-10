@@ -1,7 +1,7 @@
 {
   "name": "spades",
   "description": "discord.js bot template",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "main": "src/app/app.js",
   "type": "module",
   "author": "nonsensetwice",
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/nonsensetwice/spades#readme",
   "dependencies": {
-    "@sapphire/framework": "^4.6.0",
+    "@sapphire/framework": "^5.3.1",
     "@sentry/integrations": "^7.70.0",
     "@sentry/node": "^7.119.2",
     "@sentry/tracing": "^7.70.0",
@@ -35,6 +35,9 @@
     "mongodb": "^6.1.0",
     "pino": "^8.15.1",
     "pino-sentry-transport": "^1.0.5"
+  },
+  "overrides": {
+    "whatwg-url": "^14.0.0"
   },
   "devDependencies": {
     "eslint": "^9.13.0",
