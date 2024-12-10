@@ -1,10 +1,8 @@
-import { readdir } from 'fs/promises';
-import { join } from 'path';
 import {
 	GatewayIntentBits,
 	Partials
 } from 'discord.js';
-import { SapphireClient } from '@sapphire/framework';
+import OverloadClient from './utils/OverloadClient.js';
 import Log from './utils/Log.js';
 import { init, Integrations } from '@sentry/node';
 import { RewriteFrames } from '@sentry/integrations';
@@ -12,9 +10,8 @@ import { RewriteFrames } from '@sentry/integrations';
 initializeSentryIO();
 
 const client = initializeClient();
-initializeEvents();
 
-client.login(process.env.DISCORD_BOT_TOKEN).catch(Log.error);
+client.login(process.env.DISCORD_BOT_TOKEN).catch(error => Log.error(error));
 
 function initializeClient() {
 	const clientOptions = {
@@ -37,35 +34,7 @@ function initializeClient() {
 			Partials.User
 		],
 	};
-	return new SapphireClient(clientOptions);
-}
-
-// the events handler
-async function initializeEvents() {
-	
-	client.on('error', Log.error);
-
-	const eventsPath = new URL('./events', import.meta.url);
-	const eventsArray = await readdir(eventsPath);
-	const eventFiles = eventsArray.filter(file => file.endsWith('.js'));
-	// client.events = new Collection();
-	eventFiles.forEach(async function(file) {
-		const filePath = join(eventsPath.toString(), file);
-		const eventModule = await import(filePath);
-		const event = await eventModule.default;
-		// client.events.set(event.name, event);
-		try {
-			if (event.once) {
-				client.once(event.name, (...args) => event.execute(...args, client));
-			} else {
-				client.on(event.name, (...args) => event.execute(...args, client));
-			}
-		} catch (e) {
-			// eslint-disable-next-line no-console
-			console.error('events error:', e);
-		}
-	});
-	return client.events;
+	return new OverloadClient(clientOptions);
 }
 
 // Sentry setup
