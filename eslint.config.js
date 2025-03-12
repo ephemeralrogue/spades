@@ -1,4 +1,5 @@
 import globals from 'globals';
+import stylistic from '@stylistic/eslint-plugin';
 
 
 export default [
@@ -8,7 +9,14 @@ export default [
 			ecmaVersion: 'latest'
 		},
 		files: [ '**/*.js' ],
+		plugins: {
+			'@stylistic': stylistic
+		},
 		rules: {
+			'@stylistic/indent': [
+				'error',
+				'tab'
+			],
 			semi: [
 				'error',
 				'always'

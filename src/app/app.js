@@ -4,10 +4,6 @@ import {
 } from 'discord.js';
 import OverloadClient from './utils/OverloadClient.js';
 import Log from './utils/Log.js';
-import { init, Integrations } from '@sentry/node';
-import { RewriteFrames } from '@sentry/integrations';
-
-initializeSentryIO();
 
 const client = initializeClient();
 
@@ -35,21 +31,4 @@ function initializeClient() {
 		],
 	};
 	return new OverloadClient(clientOptions);
-}
-
-// Sentry setup
-function initializeSentryIO() {
-	const root = new URL('./', import.meta.url);
-	init({
-		dsn: process.env.SENTRY_IO_DSN,
-		tracesSampleRate: 1.0,
-		environment: process.env.NODE_ENV,
-		
-		integrations: [
-			new RewriteFrames({
-				root: root,
-			}),
-			new Integrations.Http({ tracing: true }),
-		],
-	});
 }

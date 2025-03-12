@@ -1,5 +1,4 @@
 import pino from 'pino';
-import Sentry from '@sentry/node';
 
 let pinoLevel;
 if (process.env.NODE_ENV != 'production') {
@@ -9,23 +8,22 @@ if (process.env.NODE_ENV != 'production') {
 }
 
 const transport = pino.transport({
-	target: 'pino-sentry-transport',
+	target: 'pino-pretty',
 	options: {
-		name: process.env.APP_NAME,
-		level: pinoLevel,
-		batching: true,
-		interval: 5,
-		sentry: {
-			dsn: process.env.SENTRY_IO_DSN
-		}
+		translateTime: true,
+		colorize: true
 	}
 });
 
-let logger;
+const options = {
+	level: pinoLevel
+};
+
+let Log;
 
 try {
-	logger = pino(transport);
-	logger.info('Logger initialized!');
+	Log = pino(options, transport);
+	Log.info('Logger initialized!');
 } catch (e) {
 	// eslint-disable-next-line no-console
 	console.log('Please setup Pino basicAuth.');
@@ -33,95 +31,5 @@ try {
 	console.log(e);
 	throw new Error();
 }
-
-const Log = {
-
-	fatal(statement, options) {
-		logger.fatal(statement, options);
-		Sentry.addBreadcrumb({
-			level: 'fatal',
-			message: statement
-		});
-		if (process.env.NODE_ENV != 'production') {
-			// eslint-disable-next-line no-console
-			console.error(statement);
-		}
-	},
-
-	error(statement, options) {
-		logger.error(statement, options);
-		Sentry.addBreadcrumb({
-			level: 'error',
-			message: statement
-		});
-		if (process.env.NODE_ENV != 'production') {
-			// eslint-disable-next-line no-console
-			console.error(statement);
-		}
-	},
-
-	warn(statement, options) {
-		logger.warn(statement, options);
-		Sentry.addBreadcrumb({
-			level: 'warn',
-			message: statement
-		});
-		if (process.env.NODE_ENV != 'production') {
-			// eslint-disable-next-line no-console
-			console.error(statement);
-		}
-	},
-
-	info(statement, options) {
-		logger.info(statement, options);
-		Sentry.addBreadcrumb({
-			level: 'info',
-			message: statement
-		});
-		if (process.env.NODE_ENV != 'production') {
-			// eslint-disable-next-line no-console
-			console.error(statement);
-		}
-	},
-
-	debug(statement, options) {
-		logger.debug(statement, options);
-		Sentry.addBreadcrumb({
-			level: 'debug',
-			message: statement
-		});
-		if (process.env.NODE_ENV != 'production') {
-			// eslint-disable-next-line no-console
-			console.error(statement);
-		}
-	},
-
-	trace(statement, options) {
-		logger.trace(statement, options);
-		Sentry.addBreadcrumb({
-			level: 'trace',
-			message: statement
-		});
-		if (process.env.NODE_ENV != 'production') {
-			// eslint-disable-next-line no-console
-			console.error(statement);
-		}
-	},
-
-	log(statement, options) {
-		logger.log(statement, options);
-		Sentry.addBreadcrumb({
-			level: 'log',
-			message: statement
-		});
-		if (process.env.NODE_ENV != 'production') {
-			// eslint-disable-next-line no-console
-			console.error(statement);
-		}
-	},
-
-	flush() { logger.flush(); }
-
-};
 
 export default Log;
