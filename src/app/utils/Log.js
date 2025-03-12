@@ -11,15 +11,18 @@ const transport = pino.transport({
 	target: 'pino-pretty',
 	options: {
 		translateTime: true,
-		colorize: true,
-		level: pinoLevel
+		colorize: true
 	}
 });
+
+const options = {
+	level: pinoLevel
+};
 
 let Log;
 
 try {
-	Log = pino(transport);
+	Log = pino(options, transport);
 	Log.info('Logger initialized!');
 } catch (e) {
 	// eslint-disable-next-line no-console
